@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {
   get,
@@ -37,7 +38,10 @@ export async function fetchDataAndUpdate(
 
   if (initialData) {
     console.log("Initial 10 entries:", initialData);
-    setData(Object.values(initialData));
+    const sortedData = Object.values(initialData).sort(
+      (a: any, b: any) => b.timestamp - a.timestamp
+    );
+    setData(sortedData);
   } else {
     console.log("No data available");
     setData([]);
